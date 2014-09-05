@@ -22,14 +22,14 @@ class WampApplication(WebSocketApplication):
         wamp = self.protocol
         wamp.register_procedure("http://localhost:8000/calc#add", self.add)
         wamp.register_object("http://localhost:8000/db#", KeyValue())
-        print("opened")
+        print "opened"
 
     def on_message(self, message):
-        print("message: ", message)
+        print "message: ", message
         super(WampApplication, self).on_message(message)
 
     def on_close(self, reason):
-        print("closed")
+        print "closed"
 
     def add(self, x, y):
         return int(x) + int(y)

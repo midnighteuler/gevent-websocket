@@ -14,7 +14,7 @@ flask_app.debug = True
 
 class ChatApplication(WebSocketApplication):
     def on_open(self):
-        print("Some client connected!")
+        print "Some client connected!"
 
     def on_message(self, message):
         if message is None:
@@ -35,12 +35,12 @@ class ChatApplication(WebSocketApplication):
             'msg_type': 'update_clients',
             'clients': [
                 getattr(client, 'nickname', 'anonymous')
-                for client in list(self.ws.handler.server.clients.values())
+                for client in self.ws.handler.server.clients.values()
             ]
         }))
 
     def broadcast(self, message):
-        for client in list(self.ws.handler.server.clients.values()):
+        for client in self.ws.handler.server.clients.values():
             client.ws.send(json.dumps({
                 'msg_type': 'message',
                 'nickname': message['nickname'],
@@ -48,7 +48,7 @@ class ChatApplication(WebSocketApplication):
             }))
 
     def on_close(self, reason):
-        print("Connection closed! ")
+        print "Connection closed! "
 
 
 @flask_app.route('/')
